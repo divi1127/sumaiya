@@ -1,0 +1,10 @@
+import jwt from 'jsonwebtoken';
+
+const generateToken = (id) => {
+  const secret = process.env.JWT_SECRET || 'fallback_secret_for_dev_mode';
+  return jwt.sign({ id }, secret, {
+    expiresIn: '30d'
+  });
+};
+
+export default generateToken;

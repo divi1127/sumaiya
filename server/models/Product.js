@@ -1,0 +1,110 @@
+import mongoose from 'mongoose';
+
+const variantSchema = new mongoose.Schema({
+  name: { type: String, required: true }, // e.g., 'Size', 'Color'
+  options: [{ type: String, required: true }] // e.g., ['S', 'M', 'L'], ['Red', 'Blue']
+}, { _id: false });
+
+const sizeOptionSchema = new mongoose.Schema({
+  size: { type: String, required: true },
+  price: { type: Number, required: true, min: [1, 'Price must be greater than 0'] },
+  stock: { type: Number, required: true, min: [0, 'Stock cannot be negative'], default: 0 }
+}, { _id: false });
+
+const brandPriceSchema = new mongoose.Schema({
+  brand: { type: String, required: true },
+  type: { type: String, required: true },
+  price: { type: Number, required: true, min: 0 }
+}, { _id: false });
+
+const productSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Product name is required'],
+    trim: true
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  description: {
+    type: String,
+    required: [true, 'Product description is required']
+  },
+  price: {
+    type: Number,
+    required: [true, 'Product price is required'],
+    min: [0, 'Price cannot be negative']
+  },
+  compareAtPrice: {
+    type: Number,
+    min: [0, 'Compare price cannot be negative']
+  },
+  // category: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Category',
+  //   required: [true, 'Product category is required']
+  // },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+  },
+
+  subcategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SubCategory'
+  },
+  images: [{
+    type: String,
+    required: [true, 'Product images are required']
+  }],
+  stock: {
+    type: Number,
+    required: [true, 'Product stock is required'],
+    min: [0, 'Stock cannot be negative'],
+    default: 0
+  },
+  ratings: {
+    type: Number,
+    default: 0
+  },
+  numOfReviews: {
+    type: Number,
+    default: 0
+  },
+  variants: [variantSchema],
+  sizes: [sizeOptionSchema],
+  // Brand/type specific pricing. Example: [{ brand: 'Nike', type: 'Milano Loop', price: 199 }]
+  brandPrices: [brandPriceSchema],
+  // Optional product brand
+  brand: { type: String },
+  colorImages: [{
+    color: { type: String, required: true }, // The color name (e.g. 'Red')
+    image: { type: String, required: true }  // The image URL corresponding to this color
+  }],
+  productVariants: [{
+    size: { type: String, required: true },
+    color: { type: String, required: true },
+    price: { type: Number, required: true, min: [0, 'Price cannot be negative'] },
+    stock: { type: Number, required: true, min: [0, 'Stock cannot be negative'], default: 0 },
+    image: { type: String }
+  }],
+  isFeatured: {
+    type: Boolean,
+    default: false
+  },
+  isTrending: {
+    type: Boolean,
+    default: false
+  }
+}, {
+  timestamps: true
+});
+
+// Indexing for search
+productSchema.index({ name: 'text', description: 'text' });
+
+const Product = mongoose.model('Product', productSchema);
+export default Product;
