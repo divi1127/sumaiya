@@ -222,7 +222,7 @@ const ProductCard = ({ product, offer }) => {
 
       {product.subcategory?.name && (
         <>
-          <span className="text-slate-400 text-xs">•</span>
+          <span className="text-slate-400 text-xs"> </span>
 
           <span className="px-2 py-1 rounded-full bg-brand-bronze/10 text-brand-bronze text-[10px] uppercase tracking-wide font-bold">
             {product.subcategory.name}
