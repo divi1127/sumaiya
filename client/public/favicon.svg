@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <circle cx="256" cy="256" r="240" fill="#0A0A0A" stroke="#D4AF37" stroke-width="16"/>
+  <!-- Crescent Moon -->
+  <path d="M300 140 C210 140 150 200 150 290 C150 360 200 410 270 410 C310 410 340 390 360 360 C290 370 240 320 240 270 C240 200 290 150 360 150 C340 142 320 140 300 140 Z" fill="url(#goldGradient)"/>
+  <!-- Star -->
+  <polygon points="350,180 355,195 370,195 358,205 362,220 350,210 338,220 342,205 330,195 345,195" fill="url(#goldGradient)"/>
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE4B5"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#AA7C11"/>
+    </linearGradient>
+  </defs>
+</svg>

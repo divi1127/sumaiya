@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* ============================================================
+     SUMAIYA 99 — Black-and-Gold Premium Palette
+     Based on the circular gold crescent-moon logo
+     ============================================================ */
+
+  /* Primary gold accent (replaces cyan) */
+  --color-brand-gold:        #D4AF37;
+  --color-brand-gold-light:  #FFE4B5;
+  --color-brand-gold-muted:  #B8960C;
+  --color-brand-gold-warm:   #F0C040;
+
+  /* Secondary champagne / bronze (replaces indigo) */
+  --color-brand-champagne:   #E8C97D;
+  --color-brand-bronze:      #AA7C11;
+  --color-brand-deep-gold:   #8B6914;
+
+  /* Accent highlight (replaces violet) */
+  --color-brand-amber:       #F5C842;
+  --color-brand-rose-gold:   #C9956C;
+
+  /* Brand gold scale for Tailwind */
+  --color-brand-gold-400: #D4AF37;
+  --color-brand-gold-500: #B8960C;
+  --color-brand-gold-600: #AA7C11;
+
+  /* Brand amber scale for Tailwind */
+  --color-brand-amber-400: #F5C842;
+  --color-brand-amber-500: #E8C97D;
+  --color-brand-amber-600: #C9A227;
+
+  /* Tailwind color-scale overrides — map cyan→gold, indigo→champagne */
+  /* cyan-300 → light gold, cyan-400 → mid gold, cyan-500 → rich gold */
+  --color-cyan-300: #FFE4B5;
+  --color-cyan-400: #F0C040;
+  --color-cyan-500: #D4AF37;
+  --color-cyan-600: #B8960C;
+
+  /* indigo-400 → champagne, indigo-500 → bronze, indigo-600 → deep gold */
+  --color-indigo-400: #E8C97D;
+  --color-indigo-500: #C9A227;
+  --color-indigo-600: #AA7C11;
+
+  /* violet-400/500 → warm amber */
+  --color-violet-400: #F5C842;
+  --color-violet-500: #D4AF37;
+
+  /* slate → obsidian blacks / charcoal grays */
+  --color-slate-50:  #F8F6F0;
+  --color-slate-100: #EDE9DF;
+  --color-slate-200: #D8D0C0;
+  --color-slate-300: #BEB4A0;
+  --color-slate-400: #9A907C;
+  --color-slate-500: #786E5C;
+  --color-slate-600: #5A5448;
+  --color-slate-700: #3C3830;
+  --color-slate-800: #282420;
+  --color-slate-900: #1A1710;
+  --color-slate-950: #0D0B06;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: 248, 244, 235;      /* warm ivory */
+    --text-primary: 20, 16, 8;        /* near-black */
+    --text-secondary: 100, 90, 70;    /* warm grey-brown */
+    --glass-bg: rgba(255, 248, 230, 0.50);
+    --glass-border: rgba(212, 175, 55, 0.25);
+    --glass-shadow: 0 8px 32px 0 rgba(180, 140, 20, 0.10);
+  }
+
+  :root.dark {
+    color-scheme: dark;
+    --background: 13, 11, 6;          /* matte black / obsidian */
+    --text-primary: 248, 244, 235;    /* warm ivory */
+    --text-secondary: 154, 144, 124;  /* muted gold-grey */
+    --glass-bg: rgba(26, 23, 16, 0.70);
+    --glass-border: rgba(212, 175, 55, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.50);
+  }
+
+  * {
+    border-color: inherit;
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--text-primary));
+    font-family: var(--font-sans);
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+  }
+
+  /* Ensure all text elements inherit theme colors */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, label, td, th, li, span, input, textarea, button {
+    color: inherit;
+  }
+
+  /* Light mode default text colors */
+  :root h1, :root h2, :root h3, :root h4, :root h5, :root h6 {
+    color: #1A1710;
+  }
+  :root p, :root span, :root div, :root a, :root label, :root td, :root th, :root li, :root input, :root textarea, :root button {
+    color: #3C3830;
+  }
+  :root .text-muted {
+    color: #786E5C;
+  }
+
+  /* Dark mode text colors */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #F8F6F0;
+  }
+  .dark p, .dark span, .dark div, .dark a, .dark label, .dark td, .dark th, .dark li, .dark input, .dark textarea, .dark button {
+    color: #9A907C;
+  }
+  .dark .text-muted {
+    color: #786E5C;
+  }
+
+  /* Override for elements that should stay light in dark mode */
+  .dark .text-white-force {
+    color: #F8F6F0 !important;
+  }
+  .dark .text-slate-300 {
+    color: #D8D0C0 !important;
+  }
+}
+
+/* ================================================================
+   Premium UI Utilities — Gold & Obsidian
+   ================================================================ */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 245, 200, 0.55);
+  border-color: rgba(212, 175, 55, 0.40);
+  box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.20);
+}
+
+.dark .glass-panel-hover:hover {
+  background: rgba(26, 23, 16, 0.90);
+  border-color: rgba(212, 175, 55, 0.30);
+  box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.20);
+}
+
+/* Gradient text — metallic gold shimmer */
+.gradient-text {
+  background: linear-gradient(135deg, #FFE4B5, #D4AF37, #AA7C11);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(var(--background), 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.50);
+}
+
+/* Hide scrollbar utility (for category carousel) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Shimmer Loading Animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg,
+    rgba(212, 175, 55, 0.04) 25%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(212, 175, 55, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.dark .skeleton-shimmer {
+  background: linear-gradient(90deg,
+    rgba(13, 11, 6, 0.6) 25%,
+    rgba(30, 25, 14, 0.7) 50%,
+    rgba(13, 11, 6, 0.6) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Gold glow pulse — for decorative orbs */
+@keyframes gold-pulse {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.35; }
+}
+.gold-glow { animation: gold-pulse 3s ease-in-out infinite; }
