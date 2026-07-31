@@ -55,24 +55,25 @@ export const getActiveOffers = async () => {
 export const resolveImage = (path) => {
   if (!path) return "";
   
-  const baseUrl = API.defaults.baseURL?.replace(/\/api\/?$/, '') || "http://localhost:5000";
+  const baseUrl = "https://sumaiya-vbiu.onrender.com";
 
-  // If path is already an absolute URL
+  // Replace any old backend URLs with the current one
   if (path.startsWith("http")) {
-    // If it's a localhost URL and we have a different baseUrl (production), swap it
-    if (path.includes("localhost:5000") && !baseUrl.includes("localhost:5000")) {
-      return path.replace("http://localhost:5000", baseUrl);
+    if (
+      path.includes("localhost:5000") ||
+      path.includes("ecommerce-73js.onrender.com") ||
+      path.includes("ecommerce-eight-virid-50.vercel.app")
+    ) {
+      return path
+        .replace(/https?:\/\/localhost:5000/, baseUrl)
+        .replace(/https?:\/\/ecommerce-73js\.onrender\.com/, baseUrl)
+        .replace(/https?:\/\/ecommerce-eight-virid-50\.vercel\.app/, baseUrl);
     }
-    // If it's already absolute (e.g. cloud storage or correct localhost), return as is
     return path;
   }
   
-  // If it's a relative path starting with /
-  if (path.startsWith("/")) {
-    return `${baseUrl}${path}`;
-  }
+  if (path.startsWith("/")) return `${baseUrl}${path}`;
   
-  // For any other relative path
   return `${baseUrl}/${path}`;
 };
 
